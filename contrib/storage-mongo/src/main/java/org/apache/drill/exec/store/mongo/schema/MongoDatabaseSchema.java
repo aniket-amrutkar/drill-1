@@ -17,20 +17,17 @@
  */
 package org.apache.drill.exec.store.mongo.schema;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
-
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import org.apache.calcite.schema.Table;
-
 import org.apache.drill.exec.planner.logical.DrillTable;
 import org.apache.drill.exec.store.AbstractSchema;
 import org.apache.drill.exec.store.mongo.MongoStoragePluginConfig;
 import org.apache.drill.exec.store.mongo.schema.MongoSchemaFactory.MongoSchema;
 
-import com.google.common.collect.Sets;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MongoDatabaseSchema extends AbstractSchema {
   static final org.slf4j.Logger logger = org.slf4j.LoggerFactory
@@ -49,10 +46,6 @@ public class MongoDatabaseSchema extends AbstractSchema {
 
   @Override
   public Table getTable(String tableName) {
-    if (!tableNames.contains(tableName)) { // table does not exist
-      return null;
-    }
-
     if (! drillTables.containsKey(tableName)) {
       drillTables.put(tableName, mongoSchema.getDrillTable(this.name, tableName));
     }
